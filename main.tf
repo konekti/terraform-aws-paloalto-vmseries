@@ -45,7 +45,7 @@ resource "aws_eip" "this" {
   domain            = "vpc"
   network_interface = aws_network_interface.this[each.key].id
   public_ipv4_pool  = lookup(each.value, "public_ipv4_pool", "amazon")
-  tags              = merge(var.tags, { Name = coalesce(try(each.value.name, null), "${var.name}-${each.key}") })
+  tags              = merge(var.tags, { Name = coalesce(try(each.value.name, null), upper("${var.name}-${each.key}")) })
 }
 
 resource "aws_eip_association" "this" {
