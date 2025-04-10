@@ -35,7 +35,7 @@ resource "aws_network_interface" "this" {
   source_dest_check = lookup(each.value, "source_dest_check", false)
   security_groups   = lookup(each.value, "security_group_ids", null)
   description       = lookup(each.value, "description", null)
-  tags              = merge(var.tags, { Name = coalesce(try(each.value.name, null), "${var.name}-${each.key}") })
+  tags              = merge(var.tags, { Name = coalesce(try(each.value.name, null), upper("${var.name}-${each.key}")) })
 }
 
 # Create and/or associate EIPs
